@@ -43,35 +43,44 @@ def sub_cb(topic, msg):
 #
 # time.sleep(5)
 
-def conn():
+#while True:
 
-    #if wlan.isconnected():
+#if wlan.isconnected():
 
-    c = MQTTClient(ID, SERVER)
-    c.set_callback(sub_cb)
-    c.connect()
-    c.subscribe(tRED)
-    c.subscribe(tGREEN)
-    c.subscribe(tBLUE)
-    c.subscribe(tPULSE)
-    c.subscribe(tPULSETIME)
+c = MQTTClient(ID, SERVER)
+c.set_callback(sub_cb)
+c.connect()
+c.subscribe(tRED)
+c.subscribe(tGREEN)
+c.subscribe(tBLUE)
+c.subscribe(tPULSE)
+c.subscribe(tPULSETIME)
 
 
-    while True:
+while True:
 
+    c.check_msg()
+
+    if config['lPULSE'] == 0:
+        #print("lPULSE = %s" % config['lPULSE'])
+        for l in range(n):
+            np[l] = (config['lRED'], config['lGREEN'], config['lBLUE'])
+        np.write()
         c.check_msg()
+        time.sleep_ms(10)
 
-        if config['lPULSE'] == 0:
-            #print("lPULSE = %s" % config['lPULSE'])
+    if config['lPULSE'] == 1:
+        #print("lPULSE = %s" % config['lPULSE'])
+        for i in range(40, 255):
             for l in range(n):
-                np[l] = (config['lRED'], config['lGREEN'], config['lBLUE'])
+                np[l] = (i,0,0)
             np.write()
             c.check_msg()
-            time.sleep_ms(10)
-
+            if config['lPULSE'] == 0:
+                break
+            time.sleep_ms(config['lPULSETIME'])
         if config['lPULSE'] == 1:
-            #print("lPULSE = %s" % config['lPULSE'])
-            for i in range(40, 255):
+            for i in range(255, 40, -1):
                 for l in range(n):
                     np[l] = (i,0,0)
                 np.write()
@@ -79,14 +88,5 @@ def conn():
                 if config['lPULSE'] == 0:
                     break
                 time.sleep_ms(config['lPULSETIME'])
-            if config['lPULSE'] == 1:
-                for i in range(255, 40, -1):
-                    for l in range(n):
-                        np[l] = (i,0,0)
-                    np.write()
-                    c.check_msg()
-                    if config['lPULSE'] == 0:
-                        break
-                    time.sleep_ms(config['lPULSETIME'])
 
-        c.check_msg()
+    c.check_msg()
