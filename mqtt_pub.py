@@ -7,7 +7,7 @@ def conectar():
     #import micropython
 
     SERVER = "10.6.1.112"
-    TOPIC = b"/esp/dht"
+    TOPIC = b"/teste"
     ID = "esp"
     USER = b"esp"
     PASSWORD = b"senhaesp"
