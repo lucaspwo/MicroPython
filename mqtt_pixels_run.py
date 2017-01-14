@@ -6,7 +6,6 @@ n = np.n
 config = {
     'lRED': 255,
     'lGREEN': 0,
-    'lGREEN': 0,
     'lBLUE': 0,
     'lPULSE': 1,
     'lPULSETIME': 15
@@ -14,7 +13,7 @@ config = {
 
 
 
-SERVER = "192.168.0.27"
+SERVER = "192.168.0.17"
 tRED = b"/led/red"
 tGREEN = b"/led/green"
 tBLUE = b"/led/blue"
@@ -25,7 +24,7 @@ ID = "esp"
 def sub_cb(topic, msg):
     #global state
     msg = int(msg)
-    print((topic, msg))
+    #print((topic, msg))
     if topic == tRED:
         config['lRED'] = msg
     if topic == tGREEN:
@@ -43,7 +42,6 @@ def sub_cb(topic, msg):
 #
 # time.sleep(5)
 
-#while True:
 
 #if wlan.isconnected():
 
@@ -67,7 +65,7 @@ while True:
             np[l] = (config['lRED'], config['lGREEN'], config['lBLUE'])
         np.write()
         c.check_msg()
-        time.sleep_ms(10)
+        time.sleep_ms(1)
 
     if config['lPULSE'] == 1:
         #print("lPULSE = %s" % config['lPULSE'])
