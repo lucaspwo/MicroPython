@@ -6,8 +6,8 @@ def conectar():
     wlan = network.WLAN(network.STA_IF)
     if not wlan.isconnected():
         wlan.active(True)
-        wlan.connect('Rockbox Turbo', 'sacidepatinete')
-        print('Conectando na rede Rockbox Turbo...')
+        wlan.connect('Rockbox Z', 'sacidepatinete')
+        print('Conectando na rede Rockbox Z...')
         #wlan.connect('BonoNet', 'bonooliveira402')
         #print('Conectando na rede BonoNet...')
         for i in range(0, 9):
