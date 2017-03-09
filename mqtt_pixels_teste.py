@@ -1,4 +1,4 @@
-import machine, neopixel, time, network, utime, json. os
+import machine, neopixel, time, network, utime, json, os
 from umqtt.simple import MQTTClient
 np = neopixel.NeoPixel(machine.Pin(4), 23)
 n = np.n
@@ -18,7 +18,7 @@ config = json.loads(preJson)
 #     'lPULSETIME': 15
 # }
 
-SERVER = "192.168.0.12"
+SERVER = "192.168.0.17"
 tRED = b"/led/red"
 tGREEN = b"/led/green"
 tBLUE = b"/led/blue"
@@ -31,16 +31,16 @@ def sub_cb(topic, msg):
     msg = int(msg)
     #print((topic, msg))
     if topic == tRED:
-        config['lRED'] = msg
+        config['r'] = msg
     if topic == tGREEN:
-        config['lGREEN'] = msg
+        config['g'] = msg
     if topic == tBLUE:
-        config['lBLUE'] = msg
+        config['b'] = msg
     if topic == tPULSE:
-        config['lPULSE'] = msg
+        config['p'] = msg
         #print(config['lPULSE'])
     if topic == tPULSETIME:
-        config['lPULSETIME'] = msg
+        config['t'] = msg
 
     os.remove('ledsConfig.txt')
     data = json.dumps(config)
@@ -70,32 +70,32 @@ while True:
 
     c.check_msg()
 
-    if config['lPULSE'] == 0:
+    if config['p'] == 0:
         #print("lPULSE = %s" % config['lPULSE'])
         for l in range(n):
-            np[l] = (config['lRED'], config['lGREEN'], config['lBLUE'])
+            np[l] = (config['r'], config['g'], config['b'])
         np.write()
         c.check_msg()
         time.sleep_ms(1)
 
-    if config['lPULSE'] == 1:
+    if config['p'] == 1:
         #print("lPULSE = %s" % config['lPULSE'])
         for i in range(40, 255):
             for l in range(n):
                 np[l] = (i,0,0)
             np.write()
             c.check_msg()
-            if config['lPULSE'] == 0:
+            if config['p'] == 0:
                 break
-            time.sleep_ms(config['lPULSETIME'])
-        if config['lPULSE'] == 1:
+            time.sleep_ms(config['t'])
+        if config['p'] == 1:
             for i in range(255, 40, -1):
                 for l in range(n):
                     np[l] = (i,0,0)
                 np.write()
                 c.check_msg()
-                if config['lPULSE'] == 0:
+                if config['p'] == 0:
                     break
-                time.sleep_ms(config['lPULSETIME'])
+                time.sleep_ms(config['t'])
 
     c.check_msg()
