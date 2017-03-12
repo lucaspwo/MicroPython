@@ -1,8 +1,1 @@
-{
-  "config": {
-    "lRED": 255,
-    "lGREEN": 0,
-    "lBLUE": 0,
-    "lPULSE": 1,
-    "lPULSETIME": 15
-}
+{"g": 0, "p": 1, "t": 15, "r": 255, "b": 0}
