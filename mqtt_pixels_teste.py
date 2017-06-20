@@ -1,4 +1,4 @@
-import machine, neopixel, time, network, utime, json, os
+import machine, neopixel, time, network, utime, json, urandom
 from umqtt.simple import MQTTClient
 np = neopixel.NeoPixel(machine.Pin(4), 23)
 n = np.n
@@ -49,7 +49,7 @@ def sub_cb(topic, msg):
     # if topic == tPULSETIME:
     #     config['t'] = msg
 
-    os.remove('ledsConfig.txt')
+    #os.remove('ledsConfig.txt')
     data = json.dumps(config)
     f = open('ledsConfig.txt', 'w')
     f.write(data)
@@ -95,7 +95,7 @@ while True:
             np.write()
             c.check_msg()
             leds = config['all']
-            if leds[3] == 0:
+            if leds[3] != 1:
                 break
             time.sleep_ms(leds[4])
         if leds[3] == 1:
@@ -105,8 +105,214 @@ while True:
                 np.write()
                 c.check_msg()
                 leds = config['all']
-                if leds[3] == 0:
+                if leds[3] != 1:
                     break
                 time.sleep_ms(leds[4])
+
+    if leds[3] == 2:
+        #print("lPULSE = %s" % config['lPULSE'])
+        for i in range(40, 255):
+            for l in range(n):
+                np[l] = (i,i,i)
+            np.write()
+            c.check_msg()
+            leds = config['all']
+            if leds[3] != 2:
+                break
+            time.sleep_ms(leds[4])
+        if leds[3] == 2:
+            for i in range(255, 40, -1):
+                for l in range(n):
+                    np[l] = (i,i,i)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 2:
+                    break
+                time.sleep_ms(leds[4])
+
+    if leds[3] == 3:
+        for l in range(n):
+            np[l] = (0,0,0)
+        np.write()
+        #print("lPULSE = %s" % config['lPULSE'])
+        rand = urandom.getrandbits(2)
+        #rand_o = rand
+        if(rand == 0):
+            for i in range(0, 200):
+                for l in range(0, 4):
+                    np[l] = (i,i,i)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 3:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 3:
+                for i in range(200, 0, -1):
+                    for l in range(0, 4):
+                        np[l] = (i,i,i)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 3:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 1):
+            for i in range(0, 200):
+                for l in range(4, 10):
+                    np[l] = (i,i,i)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 3:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 3:
+                for i in range(200, 0, -1):
+                    for l in range(4, 10):
+                        np[l] = (i,i,i)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 3:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 2):
+            for i in range(0, 200):
+                for l in range(10, 18):
+                    np[l] = (i,i,i)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 3:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 3:
+                for i in range(200, 0, -1):
+                    for l in range(10, 18):
+                        np[l] = (i,i,i)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 3:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 3):
+            for i in range(0, 200):
+                for l in range(18, 23):
+                    np[l] = (i,i,i)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 3:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 3:
+                for i in range(200, 0, -1):
+                    for l in range(18, 23):
+                        np[l] = (i,i,i)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 3:
+                        break
+                    time.sleep_ms(leds[4])
+
+    if leds[3] == 4:
+        for l in range(n):
+            np[l] = (0,0,0)
+        np.write()
+        #print("lPULSE = %s" % config['lPULSE'])
+        rand = urandom.getrandbits(2)
+        #rand_o = rand
+        if(rand == 0):
+            for i in range(0, 200):
+                for l in range(0, 4):
+                    np[l] = (i,0,0)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 4:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 4:
+                for i in range(200, 0, -1):
+                    for l in range(0, 4):
+                        np[l] = (i,0,0)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 4:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 1):
+            for i in range(0, 200):
+                for l in range(4, 10):
+                    np[l] = (i,0,0)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 4:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 4:
+                for i in range(200, 0, -1):
+                    for l in range(4, 10):
+                        np[l] = (i,0,0)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 4:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 2):
+            for i in range(0, 200):
+                for l in range(10, 18):
+                    np[l] = (i,0,0)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 4:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 4:
+                for i in range(200, 0, -1):
+                    for l in range(10, 18):
+                        np[l] = (i,0,0)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 4:
+                        break
+                    time.sleep_ms(leds[4])
+
+        if(rand == 3):
+            for i in range(0, 200):
+                for l in range(18, 23):
+                    np[l] = (i,0,0)
+                np.write()
+                c.check_msg()
+                leds = config['all']
+                if leds[3] != 4:
+                    break
+                time.sleep_ms(leds[4])
+            if leds[3] == 4:
+                for i in range(200, 0, -1):
+                    for l in range(18, 23):
+                        np[l] = (i,0,0)
+                    np.write()
+                    c.check_msg()
+                    leds = config['all']
+                    if leds[3] != 4:
+                        break
+                    time.sleep_ms(leds[4])
+
+        
 
     c.check_msg()
