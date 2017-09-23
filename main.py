@@ -1,4 +1,4 @@
-import mqtt_casa, reconnect
+import reconnect, mqtt_casa
 
 while(True):
     reconnect.connect()
