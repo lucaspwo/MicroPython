@@ -24,7 +24,7 @@ def conectar():
     #     'lPULSETIME': 15
     # }
 
-    SERVER = '192.168.0.12'
+    SERVER = '192.168.0.31'
     tALL = b"/led/all"
     # tRED = b"/led/red"
     # tGREEN = b"/led/green"
