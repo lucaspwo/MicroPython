@@ -1,8 +1,16 @@
-# import reconnect, mqtt_casa
-import reconnect, xmas_pc2
-
-while(True):
+import leds
+def conectar():
+    import reconnect
     reconnect.connect()
 
-    # mqtt_casa.conectar()                    # havendo sucesso na conexao, executar o codigo principal
-    xmas_pc2.init()
+def run():
+    leds.mqttConfig()
+# import reconnect, xmas_pc2
+
+conectar()
+run()
+
+# while(True):
+    # conectar()
+    # leds.mqttConfig()                    # havendo sucesso na conexao, executar o codigo principal
+    # xmas_pc2.init()
