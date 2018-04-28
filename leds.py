@@ -408,6 +408,7 @@ def mqttConfig():
                     time.sleep_ms(leds[4])
 
     while True:
+        leds = config['all']
         # print("while")
         # print(leds)
         c.check_msg()
@@ -415,19 +416,19 @@ def mqttConfig():
         if leds[3] == 0:
             led0()
 
-        if leds[3] == 1:
+        elif leds[3] == 1:
             led1()
 
-        if leds[3] == 2:
+        elif leds[3] == 2:
             led2()
 
-        if leds[3] == 3:
+        elif leds[3] == 3:
             led3()
 
         # if leds[3] == 4:
         #     led4()
 
-        if leds[3] == 5:
+        elif leds[3] == 5:
             led5()
         
         c.check_msg()
