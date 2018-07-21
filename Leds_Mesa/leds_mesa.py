@@ -1,6 +1,9 @@
 def mqttConfig():
-    import machine, neopixel, time, network, urandom, json
+    import machine, neopixel, time, network, urandom, json, ubinascii
     from umqtt.simple import MQTTClient
+
+    wlan = network.WLAN(network.STA_IF)
+    mac = str(ubinascii.hexlify(wlan.config('mac')))[8:-1]
 
     np = neopixel.NeoPixel(machine.Pin(5), 100)
     n = np.n
@@ -11,7 +14,7 @@ def mqttConfig():
 
     SERVER = '192.168.0.34'
     TOPIC = b"/led/all"
-    ID = "esp"
+    ID = mac
     #USER = b"lucas"
     #PASSWORD = b"9l11p02w31o5"
 
