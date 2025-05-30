@@ -16,7 +16,7 @@ def mqttConfig():
     TOPIC = b"/led/all"
     ID = mac
     #USER = b"lucas"
-    #PASSWORD = b"9l11p02w31o5"
+    #PASSWORD = b"senha"
 
     def sub_cb(topic, msg):
         global leds
